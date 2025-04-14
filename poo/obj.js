@@ -1,29 +1,28 @@
-class Pessoa {
-    constructor(nome, notaProva1, notaProva2) {
-      this.nome = nome;
-      this.notaProva1 = notaProva1;
-      this.notaProva2 = notaProva2;
-    }
-  }
-  
-  class Escola {
-    constructor(nome) {
-      this.nome = nome;
-    }
-  
-    verificarAprovacao(pessoa) {
-      if (pessoa.notaProva1 > 30 && pessoa.notaProva2 > 40) {
-        console.log(`${pessoa.nome} foi aprovado(a) na escola ${this.nome}.`);
-      } else {
-        console.log(`${pessoa.nome} não foi aprovado(a) na escola ${this.nome}.`);
-      }
-    }
-  }
-  
-  const aluno1 = new Pessoa("João", 35, 45);
-  const aluno2 = new Pessoa("Maria", 28, 50);
-  const escola = new Escola("Escola Exemplo");
-  
-  escola.verificarAprovacao(aluno1); 
-  escola.verificarAprovacao(aluno2);
-  
+function Pessoa(nome,sobrenome,idade){
+  this.nome = nome;
+  this.sobrenome = sobrenome;
+  this.idade = idade;
+  this.amigos = [];
+
+  this.nomecompleto = () => {
+    return `${this.nome} ${this.sobrenome}`;
+  };
+
+  this.adicionaramigo = (amigo) => {
+    this.amigos.push(amigo);
+    amigo.amigos.push(this)
+  };
+
+  this.selecionarAmigos = () => {
+    return this.amigos.map((amigo) => amigo.nomecompleto())
+  };
+}
+
+const pessoa1 = new Pessoa("Breno", "Oliveira", 19);
+const pessoa2 = new Pessoa("Heloisa", "Anjos", 18);
+const pessoa3 = new Pessoa("Felipe", "Gonçalve", 18);
+
+pessoa1.adicionaramigo(pessoa2)
+pessoa1.adicionaramigo(pessoa3)
+console.log(pessoa1.selecionarAmigos());
+console.log(pessoa2.selecionarAmigos());
