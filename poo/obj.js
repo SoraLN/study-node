@@ -1,33 +1,50 @@
-function novoUsuario(nome, idade, email){
+class Funcionario {
 
-  const id = {
-    nome: nome,
-    idade: idade,
-    email: email
+  #salario
+  
+  constructor(nome,idade,cargo,salario){
+    this.nome = nome;
+    this.idade = idade;
+    this.cargo = cargo;
+    this.#salario = salario;
   }
 
-  if(typeof nome === "string" && typeof idade === "number"){
-
-    return id
-
-  }else{ 
-
-    return `O usuario ${nome} esta com alguma informação incorreta, digite o nome ou idade corretamente`
-
+  get salario() {
+    return this.#salario
   }
 
+  set salario(salario) {
+    this.#salario = salario
+  }
+
+  exibirdados(){
+    return `Meu nome é ${this.nome}, tenho ${this.idade} anos, sou ${this.cargo} da empresa ChocoMarck, e sendo ${this.cargo} eu recebo ${this.salario}`
+  }
+
+  aumentarSalario(){
+    const aumento = this.salario * 0.20
+
+    this.salario += aumento
+  }
 }
 
-const total = [novoUsuario("Breno", 19, "teste.teste.com"), novoUsuario("Heloisa", 18, "helo@teste.com")]
+class Gerente extends Funcionario {
+  constructor(nome,idade,cargo,salario,departamento){
+    super(nome,idade,cargo,salario)
+    this.departamento = departamento;
+  }
 
-const total2 = [...total, novoUsuario("Davi", 20, "sla#gmail.com")]
+  exibirdados(){
+    return `Meu nome é ${this.nome}, tenho ${this.idade} anos, sou ${this.cargo} do departamento ${this.departamento} da empresa ChocoMarck, e sendo ${this.cargo} eu recebo ${this.salario}`
+  }
+}
 
+const Jairo = new Funcionario("Jairo", 18, "Repositor", 1300)
+const Felipe = new Funcionario("Felipe", 19, "Recepcionista", 1700)
+const Breno = new Gerente("Breno", 19, "Cientista De Dados", 5800, "Programação")
 
-console.log(total2)
+Jairo.aumentarSalario()
 
-
-// VC VAI CRIAR UMA FUNCAO QUE RECEBA UM Object, ok
-// JOGUE ELE PARA UM Array, ok
-// TRASFORME ELE EM STRING ok
-// GARANTA QUE O NOME É UMA STRING E IDADE UM NUMBER ok
-// ULTILIZE SPREAD PARA ADD NOVOS USUARIOS
+console.log(Jairo.exibirdados())
+console.log(Felipe.exibirdados())
+console.log(Breno.exibirdados())
